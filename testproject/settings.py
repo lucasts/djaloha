@@ -1,10 +1,13 @@
 # Django settings for teste_djaloha project.
+from os.path import join, dirname, abspath
+
+get_absolute_path = lambda *x: abspath(join(dirname(__file__), *x))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-ADMINS = (
-)
+
+ADMINS = ()
 
 MANAGERS = ADMINS
 
@@ -63,8 +66,7 @@ ROOT_URLCONF = 'testproject.urls'
 
 WSGI_APPLICATION = 'testproject.wsgi.application'
 
-TEMPLATE_DIRS = (
-)
+TEMPLATE_DIRS = (get_absolute_path('templates'),)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
