@@ -71,8 +71,13 @@ class AlohaInput(TextInput):
                 else:
                     js.append(getattr(settings, 'DJALOHA_JQUERY', "js/jquery-1.7.2.min.js"))
 
-            js.append(u'{0}/lib/aloha.js" data-aloha-plugins="{1}'.format(aloha_version, u",".join(aloha_plugins)))
+            if aloha_version.startswith('aloha.0.22.'):
+                js.append("{0}/lib/require.js".format(aloha_version))
+
             js.append(aloha_init_url)
+            js.append(u'{0}/lib/aloha.js" data-aloha-plugins="{1}'.format(aloha_version, u",".join(aloha_plugins)))
+            js.append('djaloha/js/djaloha-init.js')
+
 
             return Media(css=css, js=js)
         except Exception, msg:
