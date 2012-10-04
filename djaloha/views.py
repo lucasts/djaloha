@@ -21,5 +21,6 @@ def aloha_init(request):
     return render_to_response(
         'djaloha/aloha_init.js',
         {'links': links},
+        mimetype='text/javascript',
         context_instance=RequestContext(request)
     )
