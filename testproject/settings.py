@@ -3,8 +3,6 @@ from os.path import join, dirname, abspath
 
 get_absolute_path = lambda *x: abspath(join(dirname(__file__), *x))
 
-DJALOHA_ALOHA_VERSION = 'aloha.0.22.1'
-
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
