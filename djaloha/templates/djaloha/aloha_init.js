@@ -2,9 +2,11 @@
 
 (function (window, undefined) {
 	var Aloha = window.Aloha || ( window.Aloha = {} );
-
 	Aloha.settings = {
-		logLevels: { 'error': true, 'warn': true, 'info': true, 'debug': false, 'deprecated': true },
+        {%if config.jquery_no_conflict %}
+        jQuery: $.noConflict(),
+        {%endif%}
+        logLevels: { 'error': true, 'warn': true, 'info': true, 'debug': false, 'deprecated': true },
 		errorhandling: false,
 		ribbon: false,
 		locale: "{%if LANGUAGE_CODE|length > 2%}{{LANGUAGE_CODE|slice:':2'}}{%else%}{{LANGAGE_CODE}}{%endif%}",
@@ -150,6 +152,9 @@
 			}
 		}
 	};
+    {%if config.jquery_no_conflict %}
+    jQuery = $;
+    {%endif%}
 
 })(window);
 

@@ -11,10 +11,7 @@ class AlohaConfigTest(TestCase):
 
     def setUp(self):
         super(AlohaConfigTest, self).setUp()
-        factory = RequestFactory()
         self.url = reverse('aloha_init')
-#        request = factory.get(url)
-#        self.response = aloha_init(request)
         self.response = self.client.get(self.url)
 
     def test_should_respond_correctly(self):
@@ -32,3 +29,20 @@ class AlohaConfigTest(TestCase):
         with self.settings(DJALOHA_ALOHA_VERSION=aloha_version):
             response = self.client.get(self.url)
             self.assertTemplateUsed(response=response, template_name='djaloha/aloha_aloha.0.22.1_init.js')
+
+    def test_should_render_jquery_no_conflict(self):
+        with self.settings(DJALOHA_JQUERY_NO_CONFLICT=True):
+            response = self.client.get(self.url)
+            self.assertContains(response, 'jQuery: $.noConflict(),', count=1, status_code=200)
+            self.assertContains(response, 'jQuery = $;', count=1, status_code=200)
+
+    def test_should_not_render_jquery_no_conflict_without_config(self):
+        with self.settings(DJALOHA_JQUERY_NO_CONFLICT=False):
+            response = self.client.get(self.url)
+            self.assertContains(response, 'jQuery: $.noConflict(),', count=0, status_code=200)
+            self.assertContains(response, 'jQuery = $;', count=0, status_code=200)
+
+    def test_should_not_render_jquery_no_conflict_without_config(self):
+        response = self.client.get(self.url)
+        self.assertContains(response, 'jQuery: $.noConflict(),', count=0, status_code=200)
+        self.assertContains(response, 'jQuery = $;', count=0, status_code=200)
