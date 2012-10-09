@@ -20,9 +20,16 @@ def aloha_init(request):
     aloha_version = getattr(settings, 'DJALOHA_ALOHA_VERSION', "aloha.0.20.20")
     template_name = 'djaloha/aloha_%s_init.js' % aloha_version
 
+    jquery_no_conflict = getattr(settings, 'DJALOHA_JQUERY_NO_CONFLICT', False)
+
     return render_to_response(
         template_name,
-        {'links': links},
+        {
+            'links': links,
+            'config':{
+                'jquery_no_conflict': jquery_no_conflict
+            }
+        },
         mimetype='text/javascript',
         context_instance=RequestContext(request)
     )
