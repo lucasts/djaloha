@@ -3,9 +3,9 @@
 (function (window, undefined) {
 	var Aloha = window.Aloha || ( window.Aloha = {} );
 	Aloha.settings = {
-        {%if config.jquery_no_conflict %}
-        jQuery: $.noConflict(),
-        {%endif%}
+        {% if config.jquery_no_conflict %}
+        jQuery: $.noConflict(true),
+        {% endif %}
         logLevels: { 'error': true, 'warn': true, 'info': true, 'debug': false, 'deprecated': true },
 		errorhandling: false,
 		ribbon: false,
@@ -152,9 +152,6 @@
 			}
 		}
 	};
-    {%if config.jquery_no_conflict %}
-    jQuery = $;
-    {%endif%}
 
 })(window);
 
