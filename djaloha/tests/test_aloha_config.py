@@ -33,16 +33,13 @@ class AlohaConfigTest(TestCase):
     def test_should_render_jquery_no_conflict(self):
         with self.settings(DJALOHA_JQUERY_NO_CONFLICT=True):
             response = self.client.get(self.url)
-            self.assertContains(response, 'jQuery: $.noConflict(),', count=1, status_code=200)
-            self.assertContains(response, 'jQuery = $;', count=1, status_code=200)
+            self.assertContains(response, 'jQuery: $.noConflict(true),', count=1, status_code=200)
 
     def test_should_not_render_jquery_no_conflict_without_config(self):
         with self.settings(DJALOHA_JQUERY_NO_CONFLICT=False):
             response = self.client.get(self.url)
-            self.assertContains(response, 'jQuery: $.noConflict(),', count=0, status_code=200)
-            self.assertContains(response, 'jQuery = $;', count=0, status_code=200)
+            self.assertContains(response, 'jQuery: $.noConflict(true),', count=0, status_code=200)
 
     def test_should_not_render_jquery_no_conflict_without_config(self):
         response = self.client.get(self.url)
-        self.assertContains(response, 'jQuery: $.noConflict(),', count=0, status_code=200)
-        self.assertContains(response, 'jQuery = $;', count=0, status_code=200)
+        self.assertContains(response, 'jQuery: $.noConflict(true),', count=0, status_code=200)
